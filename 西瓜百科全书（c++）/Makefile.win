@@ -1,0 +1,39 @@
+# Project: 西瓜
+# Makefile created by Dev-C++ 5.11
+
+CPP      = g++.exe
+CC       = gcc.exe
+WINDRES  = windres.exe
+RES      = 西瓜_private.res
+OBJ      = main.o watermelon.o file.o $(RES)
+LINKOBJ  = main.o watermelon.o file.o $(RES)
+LIBS     = -L"D:/c++/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib32" -static -static-libgcc -lgraphics -lgdi32 -lgdiplus -m32 -pg
+INCS     = -I"D:/c++/Dev-Cpp/MinGW64/include" -I"D:/c++/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"D:/c++/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include"
+CXXINCS  = -I"D:/c++/Dev-Cpp/MinGW64/include" -I"D:/c++/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"D:/c++/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"D:/c++/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++"
+BIN      = 西瓜.exe
+CXXFLAGS = $(CXXINCS) -m32 -pg -std=c++11
+CFLAGS   = $(INCS) -m32 -pg -std=c++11
+RM       = rm.exe -f
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before $(BIN) all-after
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CPP) $(LINKOBJ) -o $(BIN) $(LIBS)
+
+main.o: main.cpp
+	$(CPP) -c main.cpp -o main.o $(CXXFLAGS)
+
+watermelon.o: watermelon.cpp
+	$(CPP) -c watermelon.cpp -o watermelon.o $(CXXFLAGS)
+
+file.o: file.cpp
+	$(CPP) -c file.cpp -o file.o $(CXXFLAGS)
+
+西瓜_private.res: 西瓜_private.rc 
+	$(WINDRES) -i 西瓜_private.rc -F pe-i386 --input-format=rc -o 西瓜_private.res -O coff 
+
